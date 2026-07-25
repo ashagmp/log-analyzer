@@ -127,7 +127,11 @@ def detect_brute_force(ip_requests):
     """Flag IPs with 10+ failed requests as persistent brute force."""
     result = []
     for ip, requests in ip_requests.items():
-        failed = [r for r in requests if r["status"] in [401, 403, 404]]
+        LOGIN_PATHS = ["/login", "/admin", "/wp-login", "/wp-admin", "/administrator", "/auth", "/signin", "/account/login"]
+        failed = [
+            r for r in requests
+            if r["status"] in [401, 403, 404]
+            and any(lp in r["path"].lower() for lp in LOGIN_PATHS)]
         if len(failed) >= 10:
             result.append({
                 "ip":       ip,
