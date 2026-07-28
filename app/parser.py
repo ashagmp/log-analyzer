@@ -85,6 +85,7 @@ ATTACK_PATTERNS = [
             r"nikto", r"nmap", r"masscan",
             r"sqlmap", r"dirbuster", r"gobuster",
             r"wfuzz", r"burpsuite", r"zgrab",
+            r"fuzz", r"scanner", r"recon",
         ]
     }
 ]
@@ -104,6 +105,7 @@ def parse_line(line):
                 "path":   match.group("path"),
                 "status": int(match.group("status")),
                 "size":   match.group("size"),
+                "useragent": match.groupdict().get("useragent", ""),
             }
     return None
 
@@ -111,9 +113,10 @@ def detect_attacks(entry):
     """Check path against all attack patterns."""
     detected = []
     path_lower = entry["path"].lower()
+    useragent_lower = entry.get("useragent", "").lower()
     for attack in ATTACK_PATTERNS:
         for pattern in attack["patterns"]:
-            if re.search(pattern, path_lower, re.IGNORECASE):
+            if re.search(pattern, path_lower, re.IGNORECASE) or re.search(pattern, useragent_lower,  re.IGNORECASE):
                 detected.append({
                     "name":     attack["name"],
                     "mitre":    attack["mitre"],
