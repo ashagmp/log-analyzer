@@ -60,5 +60,4 @@ This tool is intended for defensive security purposes only. Only analyze logs fr
 
 ## Author
 
-Ashag M P — Cybersecurity Student | SOC Analyst in Training  
-GitHub: github.com/ashagmp
+Ashag M P
