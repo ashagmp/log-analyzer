@@ -65,16 +65,16 @@ ATTACK_PATTERNS = [
         ]
     },
     {
-        "name": "Command Injection",
-        "mitre": "T1059",
-        "tactic": "Execution",
-        "severity": "CRITICAL",
-        "patterns": [
-            r";.*ls", r";.*cat", r";.*whoami",
-            r"\|.*ls", r"\|.*cat", r"&&.*ls",
-            r"cmd=", r"exec\(", r"system\(",
-            r"/bin/sh", r"/bin/bash",
-        ]
+    "name": "Command Injection",
+    "mitre": "T1059",
+    "tactic": "Execution",
+    "severity": "CRITICAL",
+    "patterns": [
+        r"/bin/sh", r"/bin/bash", r"/bin/sh%00",
+        r"exec\(", r"system\(",
+        r"%3B.*whoami", r"%7C.*whoami",
+        r"cmd\.exe", r"powershell",
+    ]
     },
     {
         "name": "Reconnaissance",
